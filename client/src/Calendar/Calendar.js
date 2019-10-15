@@ -5,7 +5,7 @@ class Calendar extends Component {
     render() {
         return (
             <div className="calendar-container">
-                <CalendarHeader year={this.props.year} month={this.props.month} />
+                <CalendarHeader year={this.props.calendar.year} month={this.props.calendar.month} />
                 <CalendarMonth />
             </div>
         )

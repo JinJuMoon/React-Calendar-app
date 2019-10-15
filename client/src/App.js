@@ -1,24 +1,31 @@
-import React from 'react';
+import React, {Component} from 'react';
+import axios from 'axios';
 import Calendar from './Calendar/Calendar'
 import './App.css';
 
-const calendar = {
-  'year': '2019',
-  'month': '10',
-  'date': '4',
-  'day': '금'
-}
+class App extends Component {
+
+  state = {
+    calendar: ""
+  }
+
+  componentDidMount() {
+    this.callApi()
+    .then(res => this.setState({calendar: res}))
+    .catch(err => console.log(err))
+  }
 
 
-function App() {
-  return (
-    <Calendar
-      year={calendar.year}
-      month={calendar.month}
-      date={calendar.date}
-      day={calendar.day}
-     />
-  );
+  callApi = async () => {
+    const response = await axios.get('/api/calendar');
+    return response.data;
+  }
+
+  render() {
+    return (
+      <Calendar calendar={this.state.calendar? this.state.calendar : ""} />
+    );
+  }
 }
 
 export default App;
